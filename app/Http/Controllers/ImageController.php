@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImageRequest;
 use App\Models\Image;
-use Illuminate\Http\Request;
 
 class ImageController extends Controller
 {
     public function index()
     {
-        //
+        $images = Image::all();
+        return view('index')->with('images', $images);
     }
 
     public function store(ImageRequest $request)
@@ -30,5 +30,6 @@ class ImageController extends Controller
         $image->file = $fileNameToStore;
         $image->save();
 
+        return redirect()->route('admin')->with('status', 'Image saved successfully.');
     }
 }
